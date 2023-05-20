@@ -306,7 +306,8 @@ img {
   top: 0;
   width: 100%;
   height: auto;
-  margin-top: 20px;
+  padding-top: 20px;
+  background-color: #fff;
   left: 0;
   z-index: 300;
   -webkit-transition-duration: 500ms;
