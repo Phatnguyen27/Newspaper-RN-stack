@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import LOGO from "img/blog-img/b1.jpg";
+import { ArticlesContext } from "../context/articles.context";
 import { categories } from "../config";
 
 const Home = () => {
+  const { topStories, highlights, latestArticles, mostPopularArticles } =
+    useContext(ArticlesContext);
   const dropdownItems = [
     "Home",
     "Category",
@@ -32,39 +35,6 @@ const Home = () => {
         "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
   ];
-  const highlights = [...Array(10).keys()].map((id) => ({
-    id,
-    headline: `${id}. How Did van Gogh’s Turbulent Mind Depict
-    One of the Most`,
-    author: `Katy Liu-${id}`,
-    publicDate: new Date().toLocaleDateString(),
-  }));
-  const topStories = [...Array(5).keys()].map((id) => ({
-    id,
-    headline: `${id}. How Did van Gogh’s Turbulent Mind Depict
-    One of the Most`,
-    author: `Katy Liu-${id}`,
-    publicDate: new Date().toLocaleDateString(),
-  }));
-  const latestArticles = [...Array(5).keys()].map((id) => ({
-    id,
-    headline: `${id}. How Did van Gogh’s Turbulent Mind Depict
-    One of the Most`,
-    author: `Katy Liu-${id}`,
-    publicDate: new Date().toLocaleDateString(),
-    summary:
-      "Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...",
-  }));
-  const mostPopularArticles = [...Array(2).keys()].map((id) => ({
-    id,
-    headline: `${id}. How Did van Gogh’s Turbulent Mind Depict
-    One of the Most`,
-    author: `Katy Liu-${id}`,
-    publicDate: new Date().toLocaleDateString(),
-    summary:
-      "How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...",
-    category: "business",
-  }));
   return (
     <div>
       {/* Preloader Start */}
