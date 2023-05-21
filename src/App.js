@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/blog/:id" element={<Blog />} />
-          <Route path="/category" exact element={<Category />} />
+          <Route path="/category/:category" exact element={<Category />} />
           <Route path="/view-employee/:id" component={ViewCategory}></Route>
         </Routes>
       </BrowserRouter>

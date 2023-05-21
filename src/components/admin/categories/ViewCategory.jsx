@@ -4,6 +4,7 @@ import React, { Component } from "react";
 class ViewCategory extends Component {
   constructor(props) {
     super(props);
+    console.log('run');
 
     this.state = {
       id: this.props.match.params.id,

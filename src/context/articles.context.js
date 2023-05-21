@@ -9,6 +9,7 @@ const ArticlesContextProvider = ({ children }) => {
   const [highlights, setHighlights] = useState([]);
   const [latestArticles, setLatestArticles] = useState([]);
   const [mostPopularArticles, setMostPopularArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState([]);
 
   useEffect(() => {
     const mostPopularArticles = [...Array(2).keys()].map((id) => ({
@@ -75,6 +76,8 @@ const ArticlesContextProvider = ({ children }) => {
         highlights,
         latestArticles,
         mostPopularArticles,
+        filteredArticles,
+        setFilteredArticles,
       }}
     >
       {children}
