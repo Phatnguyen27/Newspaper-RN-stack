@@ -2,17 +2,19 @@ import React, { Component, useContext } from "react";
 import LOGO from "img/blog-img/b1.jpg";
 import { ArticlesContext } from "../context/articles.context";
 import { categories } from "../config";
+import { useNavigate } from "react-router-dom";
+import { Header } from "./common/header";
+import { Footer } from "./common/footer";
 
 const Home = () => {
-  const { topStories, highlights, latestArticles, mostPopularArticles } =
-    useContext(ArticlesContext);
-  const dropdownItems = [
-    "Home",
-    "Category",
-    "Single Blog",
-    "Regular Page",
-    "Contact",
-  ];
+  const navigate = useNavigate();
+  const {
+    topStories,
+    highlights,
+    latestArticles,
+    mostPopularArticles,
+    setCurrentArticle,
+  } = useContext(ArticlesContext);
   const slideItems = [
     {
       id: 1,
@@ -35,112 +37,13 @@ const Home = () => {
         "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
   ];
+  const onArticleClickHandler = (article) => (event) => {
+    setCurrentArticle(article);
+    navigate(`/blog/${article.id}`);
+  };
   return (
     <div>
-      {/* Preloader Start */}
-      {/* <div id="preloader">
-                <div className="preload-content">
-                  <div id="world-load" />
-                </div>
-              </div> */}
-      {/* Preloader End */}
-      {/* ***** Header Area Start ***** */}
-      <header className="header-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <nav className="navbar navbar-expand-lg">
-                {/* Logo */}
-                <a className="navbar-brand" href="#">
-                  <img src="" alt="Logo" />
-                </a>
-                {/* Navbar Toggler */}
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#worldNav"
-                  aria-controls="worldNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span className="navbar-toggler-icon" />
-                </button>
-                {/* Navbar */}
-                <div className="collapse navbar-collapse" id="worldNav">
-                  <ul className="navbar-nav ml-auto">
-                    <li className="nav-item active">
-                      <a className="nav-link" href="#">
-                        Home <span className="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li className="nav-item dropdown">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Pages
-                      </a>
-                      <div
-                        className="dropdown-menu"
-                        aria-labelledby="navbarDropdown"
-                      >
-                        {dropdownItems.map((item) => (
-                          <a
-                            key={item}
-                            className="dropdown-item"
-                            href="index.html"
-                          >
-                            {item}
-                          </a>
-                        ))}
-                      </div>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Gadgets
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Lifestyle
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Video
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Contact
-                      </a>
-                    </li>
-                  </ul>
-                  {/* Search Form  */}
-                  <div id="search-wrapper">
-                    <form action="#">
-                      <input
-                        type="text"
-                        id="search"
-                        placeholder="Search something..."
-                      />
-                      <div id="close-icon" />
-                      <input className="d-none" type="submit" defaultValue />
-                    </form>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-      {/* ***** Header Area End ***** */}
+      <Header />
       {/* ********** Hero Area Start ********** */}
       <div className="hero-area">
         {/* Hero Slides Area */}
@@ -165,13 +68,14 @@ const Home = () => {
                   {slideItems.map((item) => (
                     <>
                       {/* Single Slide */}
-                      <div className="single-slide d-flex align-items-center">
+                      <div
+                        className="single-slide d-flex align-items-center"
+                        onClick={onArticleClickHandler(item)}
+                      >
                         <div className="post-number">
                           <p>{item.id}</p>
                         </div>
-                        <div className="post-title">
-                          <a href="single-blog.html">{item.content}</a>
-                        </div>
+                        <div className="post-title">{item.content}</div>
                       </div>
                     </>
                   ))}
@@ -280,15 +184,14 @@ const Home = () => {
                           {highlights.map(function (post) {
                             return (
                               <div
+                                key={post.id}
                                 className="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig"
                                 data-wow-delay="0.2s"
+                                onClick={onArticleClickHandler(post)}
                               >
                                 {/* Post Thumbnail */}
                                 <div className="post-thumbnail">
-                                  <img
-                                    src={`/img/blog-img/b${post.id}.jpg`}
-                                    alt=""
-                                  />
+                                  <img src={post.backgroundImage} alt="" />
                                 </div>
                                 {/* Post Content */}
                                 <div className="post-content">
@@ -343,24 +246,22 @@ const Home = () => {
                   <div className="widget-content">
                     {/* Single Blog Post */}
                     {topStories.map((story) => (
-                      <>
-                        <div className="single-blog-post post-style-2 d-flex align-items-center widget-post">
-                          {/* Post Thumbnail */}
-                          <div className="post-thumbnail">
-                            <img
-                              src={`/img/blog-img/b1${story.id}.jpg`}
-                              alt=""
-                            />
-                          </div>
-                          {/* Post Content */}
-                          <div className="post-content">
-                            <a href="#" className="headline">
-                              <h5 className="mb-0">{story.headline}</h5>
-                            </a>
-                          </div>
+                      <div
+                        key={story.id}
+                        className="single-blog-post post-style-2 d-flex align-items-center widget-post"
+                        onClick={onArticleClickHandler(story)}
+                      >
+                        {/* Post Thumbnail */}
+                        <div className="post-thumbnail">
+                          <img src={story.backgroundImage} alt="" />
                         </div>
-                        {/* Single Blog Post */}
-                      </>
+                        {/* Post Content */}
+                        <div className="post-content">
+                          <a href="#" className="headline">
+                            <h5 className="mb-0">{story.headline}</h5>
+                          </a>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -424,8 +325,10 @@ const Home = () => {
                 {/* Single Blog Post */}
                 {latestArticles.map((article) => (
                   <div
+                    key={article.id}
                     className="single-blog-post post-style-4 d-flex align-items-center wow fadeInUpBig"
                     data-wow-delay="0.2s"
+                    onClick={onArticleClickHandler(article)}
                   >
                     {/* Post Thumbnail */}
                     <div className="post-thumbnail">
@@ -462,12 +365,14 @@ const Home = () => {
                 </div>
                 {mostPopularArticles.map((article) => (
                   <div
+                    key={article.id}
                     className="single-blog-post wow fadeInUpBig"
                     data-wow-delay="0.2s"
+                    onClick={onArticleClickHandler(article)}
                   >
                     {/* Post Thumbnail */}
                     <div className="post-thumbnail">
-                      <img src={`/img/blog-img/b7.jpg`} alt="" />
+                      <img src={article.backgroundImage} alt="" />
                       {/* Category */}
                       <div className="post-cta">
                         <a href="#">{article.category}</a>
@@ -517,83 +422,7 @@ const Home = () => {
         </div>
       </div>
       {/* ***** Footer Area Start ***** */}
-      <footer className="footer-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <a href="#">
-                  <img src="/img/core-img/logo.png" alt="" />
-                </a>
-                <div className="copywrite-text mt-30">
-                  <p>
-                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                    Copyright © | Made with{" "}
-                    <i className="fa fa-heart-o" aria-hidden="true" /> by{" "}
-                    <a href="https://colorlib.com" target="_blank">
-                      Colorlib
-                    </a>
-                  </p>
-                  <p>
-                    Proudly distributed by{" "}
-                    <a href="https://themewagon.com" target="_blank">
-                      ThemeWagon
-                    </a>
-                  </p>
-                  {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                  <p />
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <ul className="footer-menu d-flex justify-content-between">
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">Fashion</a>
-                  </li>
-                  <li>
-                    <a href="#">Lifestyle</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact</a>
-                  </li>
-                  <li>
-                    <a href="#">Gadgets</a>
-                  </li>
-                  <li>
-                    <a href="#">Video</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <h5>Subscribe</h5>
-                <form action="#" method="post">
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Enter your mail"
-                  />
-                  <button type="button">
-                    <i className="fa fa-arrow-right" />
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      {/* ***** Footer Area End ***** */}
-      {/* jQuery (Necessary for All JavaScript Plugins) */}
-      {/* Popper js */}
-      {/* Bootstrap js */}
-      {/* Plugins js */}
-      {/* Active js */}
+      <Footer />
     </div>
   );
 };

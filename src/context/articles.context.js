@@ -20,6 +20,7 @@ const ArticlesContextProvider = ({ children }) => {
       summary:
         "How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in...",
       category: "business",
+      backgroundImage: `/img/blog-img/b2${id}.jpg`,
     }));
     setMostPopularArticles(mostPopularArticles);
   }, []);
@@ -32,6 +33,7 @@ const ArticlesContextProvider = ({ children }) => {
       One of the Most`,
       author: `Katy Liu-${id}`,
       publicDate: new Date().toLocaleDateString(),
+      backgroundImage: `/img/blog-img/b1${id}.jpg`,
     }));
     setTopStories(topStories);
   }, []);
@@ -43,6 +45,7 @@ const ArticlesContextProvider = ({ children }) => {
       One of the Most`,
       author: `Katy Liu-${id}`,
       publicDate: new Date().toLocaleDateString(),
+      backgroundImage: `/img/blog-img/b${id}.jpg`,
     }));
     setHighlights(highlights);
   }, []);
@@ -54,6 +57,7 @@ const ArticlesContextProvider = ({ children }) => {
       One of the Most`,
       author: `Katy Liu-${id}`,
       publicDate: new Date().toLocaleDateString(),
+      backgroundImage: `/img/blog-img/b3${id}.jpg`,
       summary:
         "Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...",
     }));

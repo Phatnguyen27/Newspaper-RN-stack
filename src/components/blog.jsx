@@ -1,127 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ArticlesContext } from "../context/articles.context";
-import Logo from "../assets/img/core-img/logo.png";
+import { useParams, useNavigate } from "react-router-dom";
 import BackgroundImage from "../assets/img/blog-img/bg2.jpg";
+import { Header } from "./common/header";
+import { Footer } from "./common/footer";
 
 const Blog = () => {
+  const params = useParams();
+  const navigate = useNavigate();
   const {
     currentArticle = {},
     setCurrentArticle,
     topStories,
   } = useContext(ArticlesContext);
+  useEffect(() => {
+    const { id: articleId } = params;
+    // article id hien. tai. trung voi article id tren duong dan
+    if (currentArticle.id === articleId) return;
+    // TODO: goi. api lay article
+  }, []);
   return (
     <div>
-      {/* Preloader Start */}
-      {/* <div id="preloader">
-                    <div className="preload-content">
-                        <div id="world-load" />
-                    </div>
-                </div> */}
-      {/* Preloader End */}
-      {/* ***** Header Area Start ***** */}
-      <header className="header-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <nav className="navbar navbar-expand-lg">
-                {/* Logo */}
-                <a className="navbar-brand" href="index.html">
-                  <img src={Logo} alt="Logo" />
-                </a>
-                {/* Navbar Toggler */}
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#worldNav"
-                  aria-controls="worldNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span className="navbar-toggler-icon" />
-                </button>
-                {/* Navbar */}
-                <div className="collapse navbar-collapse" id="worldNav">
-                  <ul className="navbar-nav ml-auto">
-                    <li className="nav-item active">
-                      <a className="nav-link" href="#">
-                        Home <span className="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li className="nav-item dropdown">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Pages
-                      </a>
-                      <div
-                        className="dropdown-menu"
-                        aria-labelledby="navbarDropdown"
-                      >
-                        <a className="dropdown-item" href="index.html">
-                          Home
-                        </a>
-                        <a className="dropdown-item" href="catagory.html">
-                          Catagory
-                        </a>
-                        <a className="dropdown-item" href="single-blog.html">
-                          Single Blog
-                        </a>
-                        <a className="dropdown-item" href="regular-page.html">
-                          Regular Page
-                        </a>
-                        <a className="dropdown-item" href="contact.html">
-                          Contact
-                        </a>
-                      </div>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Gadgets
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Lifestyle
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Video
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                        Contact
-                      </a>
-                    </li>
-                  </ul>
-                  {/* Search Form  */}
-                  <div id="search-wrapper">
-                    <form action="#">
-                      <input
-                        type="text"
-                        id="search"
-                        placeholder="Search something..."
-                      />
-                      <div id="close-icon" />
-                      <input className="d-none" type="submit" defaultValue />
-                    </form>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-      {/* ***** Header Area End ***** */}
-      {/* ********** Hero Area Start ********** */}
+      <Header />
       <div
         className="hero-area height-600 bg-img background-overlay"
         style={{
@@ -274,10 +174,14 @@ const Blog = () => {
                       <div
                         key={story.id}
                         className="single-blog-post post-style-2 d-flex align-items-center widget-post"
+                        onClick={(e) => {
+                          navigate(`/blog/${story.id}`);
+                          setCurrentArticle(story);
+                        }}
                       >
                         {/* Post Thumbnail */}
                         <div className="post-thumbnail">
-                          <img src={`assets/img/blog-img/b1${story.id}.jpg`} alt="" />
+                          <img src={story.backgroundImage} alt="" />
                         </div>
                         {/* Post Content */}
                         <div className="post-content">
@@ -598,84 +502,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
-      {/* ***** Footer Area Start ***** */}
-      <footer className="footer-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <a href="#">
-                  <img src="img/core-img/logo.png" alt="" />
-                </a>
-                <div className="copywrite-text mt-30">
-                  <p>
-                    {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                    Copyright © | Made with{" "}
-                    <i className="fa fa-heart-o" aria-hidden="true" /> by{" "}
-                    <a href="https://colorlib.com" target="_blank">
-                      Colorlib
-                    </a>
-                  </p>
-                  <p>
-                    Proudly distributed by{" "}
-                    <a href="https://themewagon.com" target="_blank">
-                      ThemeWagon
-                    </a>
-                  </p>
-                  {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                  <p />
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <ul className="footer-menu d-flex justify-content-between">
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">Fashion</a>
-                  </li>
-                  <li>
-                    <a href="#">Lifestyle</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact</a>
-                  </li>
-                  <li>
-                    <a href="#">Gadgets</a>
-                  </li>
-                  <li>
-                    <a href="#">Video</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="footer-single-widget">
-                <h5>Subscribe</h5>
-                <form action="#" method="post">
-                  <input
-                    type="email"
-                    name="email"
-                    id="eemail"
-                    placeholder="Enter your mail"
-                  />
-                  <button type="button">
-                    <i className="fa fa-arrow-right" />
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      {/* ***** Footer Area End ***** */}
-      {/* jQuery (Necessary for All JavaScript Plugins) */}
-      {/* Popper js */}
-      {/* Bootstrap js */}
-      {/* Plugins js */}
-      {/* Active js */}
+      <Footer />
     </div>
   );
 };
