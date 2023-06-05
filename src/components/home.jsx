@@ -1,50 +1,48 @@
 import React, { useContext } from "react";
-// import React, { useState, useEffect } from 'react';
-import LOGO from "../../img/blog-img/b1.jpg";
-import { ArticlesContext } from "../../context/articles.context";
-import { UserContext } from "../../context/users.context";
-import { categories } from "../../config";
+import LOGO from "img/blog-img/b1.jpg";
+import { ArticlesContext } from "../context/articles.context";
+import { categories } from "../config";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../common/header";
-import { Footer } from "../common/footer";
-import { Sidebar } from "../common/sidebar";
+import { Header } from "./common/header";
+import { Footer } from "./common/footer";
+import { Sidebar } from "./common/sidebar";
 
 const Home = () => {
-
   const navigate = useNavigate();
   const { highlights, latestArticles, mostPopularArticles, setCurrentArticle } =
     useContext(ArticlesContext);
-  const { user } = useContext(UserContext);
   const slideItems = [
     {
       id: 1,
       content:
-        "Newspaper",
+        "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
     {
       id: 2,
       content:
-        "Newspaper",
+        "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
     {
       id: 3,
       content:
-        "Newspaper",
+        "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
     {
       id: 4,
       content:
-        "Newspaper",
+        "How Did van Gogh’s Turbulent Mind Depict One of the MostComplex",
     },
   ];
   const onArticleClickHandler = (article) => (event) => {
     setCurrentArticle(article);
-    navigate(`/blog/${article.newsId}`);
+    navigate(`/blog/${article.id}`);
   };
   return (
     <div>
       <Header />
+      {/* ********** Hero Area Start ********** */}
       <div className="hero-area">
+        {/* Hero Slides Area */}
         <div className="hero-slides owl-carousel">
           {/* Single Slide */}
           <div
@@ -93,7 +91,7 @@ const Home = () => {
                 {/* Category Area */}
                 <div className="world-catagory-area">
                   <ul className="nav nav-tabs" id="myTab" role="tablist">
-                    <li className="title">Newspaper</li>
+                    <li className="title">Don’t Miss</li>
                     <li className="nav-item">
                       <a
                         className="nav-link active"
@@ -110,7 +108,7 @@ const Home = () => {
                     {categories.map((category) => (
                       <li className="nav-item">
                         <a
-                          className="nav-link capitalize"
+                          className="nav-link capitalize pointer"
                           id="tab2"
                           data-toggle="tab"
                           role="tab"
@@ -151,21 +149,24 @@ const Home = () => {
                                   <div className="post-content">
                                     <a href="#" className="headline">
                                       <h5>
-                                        Newspaper
+                                        How Did van Gogh’s Turbulent Mind Depict
+                                        One of the Most Complex Concepts in
+                                        Physics?
                                       </h5>
                                     </a>
                                     <p>
-                                      abc
+                                      How Did van Gogh’s Turbulent Mind Depict
+                                      One of the Most Complex Concepts in...
                                     </p>
                                     {/* Post Meta */}
                                     <div className="post-meta">
                                       <p>
                                         <a href="#" className="post-author">
-                                          DiemHoang
+                                          Katy Liu
                                         </a>{" "}
                                         on{" "}
                                         <a href="#" className="post-date">
-                                          May 19, 2023 at 9:48 am
+                                          Sep 29, 2017 at 9:48 am
                                         </a>
                                       </p>
                                     </div>
@@ -267,7 +268,7 @@ const Home = () => {
                 </div>
                 {mostPopularArticles.map((article) => (
                   <div
-                    key={article.newsId}
+                    key={article.id}
                     className="single-blog-post wow fadeInUpBig"
                     data-wow-delay="0.2s"
                     onClick={onArticleClickHandler(article)}
@@ -277,31 +278,31 @@ const Home = () => {
                       <img src={article.backgroundImage} alt="" />
                       {/* Category */}
                       <div className="post-cta">
-                        <a href="#">{article.category?.categoryTitle}</a>
+                        <a href="#">{article.category}</a>
                       </div>
                       {/* Video Button */}
-                      {/* <a
+                      <a
                         href="https://www.youtube.com/watch?v=IhnqEwFSJRg"
                         className="video-btn"
                       >
                         <i className="fa fa-play" />
-                      </a> */}
+                      </a>
                     </div>
                     {/* Post Content */}
                     <div className="post-content">
                       <a href="#" className="headline">
-                        <h5>{article.title}</h5>
+                        <h5>{article.headline}</h5>
                       </a>
-                      <p>{article.summarization || ''}</p>
+                      <p>{article.summary}</p>
                       {/* Post Meta */}
                       <div className="post-meta">
                         <p>
                           <a href="#" className="post-author">
-                            {article?.user?.username || ''}
+                            {article.author}
                           </a>{" "}
                           on{" "}
                           <a href="#" className="post-date">
-                            {(new Date(article.addedDate)).toLocaleString('en-GB', { timeZone: 'UTC' })}
+                            {article.publicDate}
                           </a>
                         </p>
                       </div>
